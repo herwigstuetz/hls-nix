@@ -36,22 +36,15 @@ let
           hls-src = pkgs.fetchFromGitHub {
             owner  = "haskell";
             repo   = "haskell-language-server";
-            rev    = "77dda30c5a11871d7c87de8d3adde4c2d9c8b429";
-            sha256 = "19rlx05wi041nc483q99ygvz93782zvmsb98pr0iqrlg5s8m0fii";
+            rev    = "589872467a0a42d52468b3c6ab545ee39b94a31a";
+            sha256 = "1vdr257pmsf5bmppk4kwncvwb753vcljj5bzp5b43mqc5906gzxq";
           };
 
           ghcide-src = pkgs.fetchFromGitHub {
-            owner  = "alanz";
-            repo   = "ghcide";
-            rev    = "3ee692a4cdb98792c371765c9f8adb5237d0a515";
-            sha256 = "0ds9d52g7bh987xz7n78c7d5i88qasyn3ihyfxay5i806hgcnama";
-          };
-
-          shake-src = pkgs.fetchFromGitHub {
             owner  = "wz1000";
-            repo   = "shake";
-            rev    = "fb3859dca2e54d1bbb2c873e68ed225fa179fbef";
-            sha256 = "0sa0jiwgyvjsmjwpfcpvzg2p7277aa0dgra1mm6afh2rfnjphz8z";
+            repo   = "ghcide";
+            rev    = "e55de1173914e0e3116d0bb50766764cbb462c8d";
+            sha256 = "1zrvq3d0kf3bdmbdlf4ym3847jm9rsk9jj9k65bim25c5ivzhxaf";
           };
 
           brittany-src = pkgs.fetchFromGitHub {
@@ -61,13 +54,6 @@ let
             sha256 = "1r5hv20cmw03fvg5m17315vsmrxd2n47amz4w611rfd6aczjafjp";
           };
 
-          cabal-plan-src = pkgs.fetchFromGitHub {
-            owner  = "peti";
-            repo   = "cabal-plan";
-            rev    = "894b76c0b6bf8f7d2f881431df1f13959a8fce87";
-            sha256 = "06iklj51d9kh9bhc42lrayypcpgkjrjvna59w920ln41rskhjr4y";
-          };
-
         in
         {
           mkDerivation = disableOptionalHaskellBuildSteps super;
@@ -75,10 +61,6 @@ let
           haskell-language-server = hlib.justStaticExecutables (self.callCabal2nix "haskell-language-server" hls-src {});
 
           ghcide = self.callCabal2nix "ghcide" ghcide-src {};
-
-          shake = self.callCabal2nix "shake" shake-src {};
-
-          cabal-plan = self.callCabal2nix "cabal-plan" cabal-plan-src {};
 
           brittany = self.callCabal2nix "brittany" brittany-src {};
 
@@ -114,8 +96,8 @@ let
 
           ghc-check = self.callHackageDirect {
             pkg = "ghc-check";
-            ver = "0.3.0.1";
-            sha256 = "1dj909m09m24315x51vxvcl28936ahsw4mavbc53danif3wy09ns";
+            ver = "0.5.0.1";
+            sha256 = "1zlbss7h6infzhhpilvkpk50gxypkb2li8fspi69jlll5l7wqi3d";
           } {};
 
           ghc-lib-parser = self.callHackageDirect {
@@ -284,6 +266,24 @@ let
             pkg = "HsYAML-aeson";
             ver = "0.2.0.0";
             sha256 = "0zgcp93y93h7rsg9dv202hf3l6sqr95iadd67lmfclb0npfs640m";
+          } {};
+
+          lsp-test = self.callHackageDirect {
+            pkg = "lsp-test";
+            ver = "0.11.0.2";
+            sha256 = "1dj909m09m24315x51vxvcl28936ahsw4mavbc53danif3wy09nz";
+          } {};
+
+          cabal-plan = self.callHackageDirect {
+            pkg = "cabal-plan";
+            ver = "0.6.2.0";
+            sha256 = "1c6diw0zwbi1nvg8yn1lvw5ghkclcxyndfd41vr6lws2j9ij8kfh";
+          } {};
+
+          shake = self.callHackageDirect {
+            pkg = "shake";
+            ver = "0.19.1";
+            sha256 = "14myzmdywbcwgx03f454ymf5zjirs7wj1bcnhhsf0w1ck122y8q3";
           } {};
 
         };
